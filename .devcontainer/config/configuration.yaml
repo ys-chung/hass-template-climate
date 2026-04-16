@@ -21,6 +21,7 @@ climate:
     current_temperature_template: '{{ states("sensor.bedroom_temperature") }}'
     current_humidity_template: '{{ states("sensor.bedroom_humidity") }}'
     # swing_mode_template: '{{ states("input_boolean.bedroom_swing_mode") }}'
+    # swing_horizontal_mode_template: '{{ states("input_boolean.bedroom_horizontal_swing_mode") }}'
     # availability_template: '{{ is_state("binary_sensor.bedroom_node_status", "on") }}'
     target_temperature_high_template: "{{ 76 }}"
 
@@ -34,6 +35,9 @@ climate:
       service: script.update_aircon_state
 
     set_swing_mode:
+      service: script.update_aircon_state
+
+    set_swing_horizontal_mode:
       service: script.update_aircon_state
 
 fan:
@@ -108,12 +112,14 @@ script:
             * temperature: {{ temperature }}
             * fan_mode: {{ fan_mode }}
             * swing_mode: {{ swing_mode }}
+            * swing_horizontal_mode: {{ swing_horizontal_mode }}
 
             Currently:
             * temperature: {{ state_attr("climate.bedroom_aircon", "temperature") | int }}
             * operation_mode: {{ states("climate.bedroom_aircon") }}
             * fan_mode: {{ state_attr("climate.bedroom_aircon", "fan_mode") }}
             * swing_mode: {{ is_state_attr("climate.bedroom_aircon", "swing_mode", "on") }}
+            * swing_horizontal_mode: {{ is_state_attr("climate.bedroom_aircon", "swing_horizontal_mode", "on") }}
 
 # If you need to debug uncomment the line below (doc: https://www.home-assistant.io/integrations/debugpy/)
 # debugpy:
