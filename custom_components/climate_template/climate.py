@@ -362,9 +362,7 @@ class TemplateClimate(TemplateEntity, ClimateEntity, RestoreEntity):
             self._set_swing_horizontal_mode_script = Script(
                 hass, set_swing_horizontal_mode_action, self._attr_name, DOMAIN
             )
-            self._attr_supported_features |= (
-                ClimateEntityFeature.SWING_HORIZONTAL_MODE
-            )
+            self._attr_supported_features |= ClimateEntityFeature.SWING_HORIZONTAL_MODE
 
         self._set_fan_mode_script = None
         if set_fan_mode_action := config.get(CONF_SET_FAN_MODE_ACTION):
@@ -866,9 +864,7 @@ class TemplateClimate(TemplateEntity, ClimateEntity, RestoreEntity):
                 context=self._context,
             )
 
-    async def async_set_swing_horizontal_mode(
-        self, swing_horizontal_mode: str
-    ) -> None:
+    async def async_set_swing_horizontal_mode(self, swing_horizontal_mode: str) -> None:
         """Set new horizontal swing mode."""
         if self._swing_horizontal_mode_template is None:  # use optimistic mode
             self._attr_swing_horizontal_mode = swing_horizontal_mode
